@@ -1,7 +1,7 @@
 {
   "name": "bower-twitter",
   "version": "0.0.0",
-  "main": "Twitter.js",
+  "main": ["Twitter.js", "twitter.css"],
   "dependencies": {
   	"EventEmitter" : "git@github.com:thomaswelton/bower-event-emitter.git"
   },

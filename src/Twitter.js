@@ -10,15 +10,13 @@
       __extends(Twitter, _super);
 
       function Twitter(config) {
-        var tweetButtons,
-          _this = this;
+        var _this = this;
 
         this.config = config;
         this.onTweet = __bind(this.onTweet, this);
         this.injectTwitter = __bind(this.injectTwitter, this);
         Twitter.__super__.constructor.call(this);
         console.log('Twitter Class', this.config);
-        tweetButtons = $$('.twitter-tweet-button');
         document.body.addEvent('click', function(event) {
           if (event.target.hasClass('twitter-share-button')) {
             event.stop();
@@ -26,7 +24,11 @@
           }
         });
         this.addEvent('onReady', function(twttr) {
+          var tweetButtons;
+
           console.log('Twitter SDK Fully loaded', twttr);
+          tweetButtons = $$('.twitter-share-button');
+          tweetButtons.setStyle('visibility', 'visible');
           return twttr.events.bind('tweet', _this.onTweet);
         });
         this.injectTwitter();

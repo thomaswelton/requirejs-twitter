@@ -5,9 +5,6 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 
 			console.log 'Twitter Class', @config
 
-			tweetButtons = $$ '.twitter-tweet-button'
-
-
 			document.body.addEvent 'click', (event) =>
 				if event.target.hasClass 'twitter-share-button'
 					event.stop()
@@ -17,6 +14,9 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 			@addEvent 'onReady', (twttr) =>
 				console.log 'Twitter SDK Fully loaded', twttr
 				
+				tweetButtons = $$ '.twitter-share-button'
+				tweetButtons.setStyle 'visibility', 'visible'
+
 				twttr.events.bind 'tweet', @onTweet
 
 			@injectTwitter()
