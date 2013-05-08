@@ -1,4 +1,4 @@
-define ['EventEmitter', 'module'], (EventEmitter, module) ->
+define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 	class Twitter extends EventEmitter
 		constructor: (@config) ->
 			super()
@@ -6,9 +6,12 @@ define ['EventEmitter', 'module'], (EventEmitter, module) ->
 			console.log 'Twitter Class', @config
 
 			tweetButtons = $$ '.twitter-tweet-button'
-			tweetButtons.addEvent 'click', (event) =>
-				event.stop()
-				window.open event.target.href, '_blank', 'height = 250, width = 450'
+
+
+			document.body.addEvent 'click', (event) =>
+				if event.target.hasClass 'twitter-tweet-button'
+					event.stop()
+					window.open event.target.href, '_blank', 'height = 250, width = 450'
 
 
 			@addEvent 'onReady', (twttr) =>

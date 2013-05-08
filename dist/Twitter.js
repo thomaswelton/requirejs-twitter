@@ -3,7 +3,7 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['EventEmitter', 'module'], function(EventEmitter, module) {
+  define(['EventEmitter', 'module', 'mootools'], function(EventEmitter, module) {
     var Twitter;
 
     Twitter = (function(_super) {
@@ -19,9 +19,11 @@
         Twitter.__super__.constructor.call(this);
         console.log('Twitter Class', this.config);
         tweetButtons = $$('.twitter-tweet-button');
-        tweetButtons.addEvent('click', function(event) {
-          event.stop();
-          return window.open(event.target.href, '_blank', 'height = 250, width = 450');
+        document.body.addEvent('click', function(event) {
+          if (event.target.hasClass('twitter-tweet-button')) {
+            event.stop();
+            return window.open(event.target.href, '_blank', 'height = 250, width = 450');
+          }
         });
         this.addEvent('onReady', function(twttr) {
           console.log('Twitter SDK Fully loaded', twttr);
