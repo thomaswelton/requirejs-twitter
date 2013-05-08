@@ -5990,26 +5990,26 @@ define("mootools", function(){});
       __extends(Twitter, _super);
 
       function Twitter(config) {
-        var tweetButtons,
-          _this = this;
+        var _this = this;
 
         this.config = config;
         this.onTweet = __bind(this.onTweet, this);
         this.injectTwitter = __bind(this.injectTwitter, this);
         Twitter.__super__.constructor.call(this);
         console.log('Twitter Class', this.config);
-        tweetButtons = $$('.twitter-tweet-button');
         document.body.addEvent('click', function(event) {
-          if (event.target.hasClass('twitter-tweet-button')) {
+          if (event.target.hasClass('twitter-share-button')) {
             event.stop();
             return window.open(event.target.href, '_blank', 'height = 250, width = 450');
           }
         });
         this.addEvent('onReady', function(twttr) {
+          var tweetButtons;
+
           console.log('Twitter SDK Fully loaded', twttr);
-          return twttr.events.bind('tweet', function() {
-            return console.log('tweet');
-          });
+          tweetButtons = $$('.twitter-share-button');
+          tweetButtons.setStyle('visibility', 'visible');
+          return twttr.events.bind('tweet', _this.onTweet);
         });
         this.injectTwitter();
       }
