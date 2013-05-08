@@ -9,7 +9,7 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 
 
 			document.body.addEvent 'click', (event) =>
-				if event.target.hasClass 'twitter-tweet-button'
+				if event.target.hasClass 'twitter-share-button'
 					event.stop()
 					window.open event.target.href, '_blank', 'height = 250, width = 450'
 
@@ -17,7 +17,7 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 			@addEvent 'onReady', (twttr) =>
 				console.log 'Twitter SDK Fully loaded', twttr
 				
-				twttr.events.bind 'tweet', () -> console.log 'tweet'
+				twttr.events.bind 'tweet', @onTweet
 
 			@injectTwitter()
 				

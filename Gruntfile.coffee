@@ -6,11 +6,20 @@ module.exports = (grunt) =>
 		coffee:
 			compile:
 				files: [
-					expand: true
-					cwd: 'src'
-					src: ['Twitter.coffee']
-					dest: 'dist'
-					ext: '.js'
+					{
+						expand: true
+						cwd: 'src'
+						src: ['Twitter.coffee']
+						dest: 'src'
+						ext: '.js'
+					},
+					{
+						expand: true
+						cwd: 'src'
+						src: ['main.coffee']
+						dest: 'demo'
+						ext: '.js'
+					}
 				]
 
 		removelogging:
@@ -56,16 +65,55 @@ module.exports = (grunt) =>
 				files: ['src/**/*.coffee']
 				tasks: ['coffee']
 
+		connect:
+			server:
+				options:
+					keepalive: true
+					port: 9001
+					base: ''
+
+		exec:
+			server:
+				command: 'grunt connect &'
+
+			open:
+				command: 'open http://localhost:9001/'
+
+		requirejs:
+			compile:
+				options:
+					optimizeCss: false
+					optimize: 'none'
+					logLevel: 1
+					name: "Twitter"
+					out: "dist/Twitter.js"
+					baseUrl: "src"
+					exclude: ['EventEmitter']
+					paths:{
+						'domReady' : '../components/requirejs-domready/domReady'
+						'Twitter': '../src/Twitter'
+						'EventEmitter': '../components/EventEmitter/dist/EventEmitter'
+						'mootools' : '../demo/mootools'
+					}
+
 		
 	grunt.loadNpmTasks 'grunt-contrib-coffee'
 	grunt.loadNpmTasks 'grunt-remove-logging'
 	grunt.loadNpmTasks 'grunt-contrib-uglify'
 	grunt.loadNpmTasks 'grunt-markdown'
 	grunt.loadNpmTasks 'grunt-regarde'
+	grunt.loadNpmTasks 'grunt-contrib-connect'
+	grunt.loadNpmTasks 'grunt-contrib-requirejs'
+	grunt.loadNpmTasks 'grunt-exec'
 	
-	grunt.registerTask 'default', ['compile', 'uglify']
+	grunt.registerTask 'default', ['compile', 'requirejs', 'uglify']
+
+	grunt.registerTask 'server', ['exec:server', 'exec:open', 'watch']
 
 	grunt.registerTask 'commit', ['default', 'git']
 	
 	grunt.registerTask 'compile', 'Compile coffeescript and markdown', ['coffee', 'markdown']
-	grunt.registerTask 'watch', 'Watch coffee and markdown files for changes and recompile', ['regarde']
+	grunt.registerTask 'watch', 'Watch coffee and markdown files for changes and recompile', () ->
+		## always use force when watching
+		grunt.option 'force', true
+		grunt.task.run ['regarde']
