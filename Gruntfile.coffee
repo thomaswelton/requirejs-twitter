@@ -88,13 +88,24 @@ module.exports = (grunt) =>
 					name: "Twitter"
 					out: "dist/Twitter.js"
 					baseUrl: "src"
-					exclude: ['EventEmitter']
+					exclude: ['EventEmitter', 'mootools']
 					paths:{
 						'domReady' : '../components/requirejs-domready/domReady'
 						'Twitter': '../src/Twitter'
 						'EventEmitter': '../components/EventEmitter/dist/EventEmitter'
 						'mootools' : '../demo/mootools'
 					}
+
+		shell:
+			bower_cache:
+				command: 'bower cache-clean'
+				options:
+					stdout: true
+
+			bower:
+				command: 'bower install'
+				options:
+					stdout: true
 
 		
 	grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -105,8 +116,9 @@ module.exports = (grunt) =>
 	grunt.loadNpmTasks 'grunt-contrib-connect'
 	grunt.loadNpmTasks 'grunt-contrib-requirejs'
 	grunt.loadNpmTasks 'grunt-exec'
+	grunt.loadNpmTasks 'grunt-shell'
 	
-	grunt.registerTask 'default', ['compile', 'requirejs', 'uglify']
+	grunt.registerTask 'default', ['shell:bower', 'compile', 'requirejs', 'uglify']
 
 	grunt.registerTask 'server', ['exec:server', 'exec:open', 'watch']
 
