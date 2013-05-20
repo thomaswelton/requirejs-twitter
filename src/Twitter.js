@@ -14,6 +14,7 @@
 
         this.config = config;
         this.onTweet = __bind(this.onTweet, this);
+        this.renderPlugins = __bind(this.renderPlugins, this);
         this.injectTwitter = __bind(this.injectTwitter, this);
         Twitter.__super__.constructor.call(this);
         console.log('Twitter Class', this.config);
@@ -24,11 +25,8 @@
           }
         });
         this.addEvent('onReady', function(twttr) {
-          var tweetButtons;
-
           console.log('Twitter SDK Fully loaded', twttr);
-          tweetButtons = $$('.twitter-share-button');
-          tweetButtons.setStyle('visibility', 'visible');
+          _this.renderPlugins();
           return twttr.events.bind('tweet', _this.onTweet);
         });
         this.injectTwitter();
@@ -48,6 +46,11 @@
             }
           });
         });
+      };
+
+      Twitter.prototype.renderPlugins = function() {
+        twttr.widgets.load();
+        return $$('.twitter-share-button').setStyle('visibility', 'visible');
       };
 
       Twitter.prototype.onTweet = function(event) {

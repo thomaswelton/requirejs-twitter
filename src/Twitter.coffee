@@ -14,9 +14,7 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 			@addEvent 'onReady', (twttr) =>
 				console.log 'Twitter SDK Fully loaded', twttr
 				
-				tweetButtons = $$ '.twitter-share-button'
-				tweetButtons.setStyle 'visibility', 'visible'
-
+				@renderPlugins()
 				twttr.events.bind 'tweet', @onTweet
 
 			@injectTwitter()
@@ -29,6 +27,10 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 				twttr.ready (twttr) =>
 					@fireEvent 'onReady', twttr
 					cb twttr if typeof cb is 'function'
+
+		renderPlugins: () =>
+			twttr.widgets.load()
+			$$('.twitter-share-button').setStyle 'visibility','visible'
 
 		onTweet: (event) =>
 			console.log 'On Tweet event fired', event
