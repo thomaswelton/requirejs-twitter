@@ -15,8 +15,10 @@
         this.config = config;
         this.onTweet = __bind(this.onTweet, this);
         this.renderPlugins = __bind(this.renderPlugins, this);
+        this.onReady = __bind(this.onReady, this);
         this.injectTwitter = __bind(this.injectTwitter, this);
         Twitter.__super__.constructor.call(this);
+        this.cb = function() {};
         console.log('Twitter Class', this.config);
         document.body.addEvent('click', function(event) {
           if (event.target.hasClass('twitter-share-button')) {
@@ -24,7 +26,7 @@
             return window.open(event.target.href, '_blank', 'height = 250, width = 450');
           }
         });
-        this.addEvent('onReady', function(twttr) {
+        this.onReady(function(twttr) {
           console.log('Twitter SDK Fully loaded', twttr);
           _this.renderPlugins();
           return twttr.events.bind('tweet', _this.onTweet);
@@ -40,7 +42,7 @@
         }
         return requirejs(['https://platform.twitter.com/widgets.js'], function() {
           return twttr.ready(function(twttr) {
-            _this.fireEvent('onReady', twttr);
+            _this.fireEvent('twttrInit', twttr);
             if (typeof cb === 'function') {
               return cb(twttr);
             }
@@ -48,9 +50,28 @@
         });
       };
 
+      Twitter.prototype.onReady = function(callback) {
+        var _this = this;
+
+        if (callback == null) {
+          callback = this.cb;
+        }
+        if (typeof twttr !== "undefined" && twttr !== null) {
+          return callback(twttr);
+        } else {
+          return this.once('twttrInit', function() {
+            return callback(twttr);
+          });
+        }
+      };
+
       Twitter.prototype.renderPlugins = function() {
-        twttr.widgets.load();
-        return $$('.twitter-share-button').setStyle('visibility', 'visible');
+        var _this = this;
+
+        return this.onReady(function(twttr) {
+          twttr.widgets.load();
+          return $$('.twitter-share-button').setStyle('visibility', 'visible');
+        });
       };
 
       Twitter.prototype.onTweet = function(event) {

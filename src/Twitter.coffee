@@ -3,6 +3,10 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 		constructor: (@config) ->
 			super()
 
+			## Used as a default for functions 
+			## That accept a callback
+			@cb = () ->
+
 			console.log 'Twitter Class', @config
 
 			document.body.addEvent 'click', (event) =>
@@ -11,7 +15,7 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 					window.open event.target.href, '_blank', 'height = 250, width = 450'
 
 
-			@addEvent 'onReady', (twttr) =>
+			@onReady (twttr) =>
 				console.log 'Twitter SDK Fully loaded', twttr
 				
 				@renderPlugins()
@@ -25,12 +29,19 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 
 			requirejs ['https://platform.twitter.com/widgets.js'], () =>
 				twttr.ready (twttr) =>
-					@fireEvent 'onReady', twttr
+					@fireEvent 'twttrInit', twttr
 					cb twttr if typeof cb is 'function'
 
+		onReady: (callback = @cb) =>
+			if twttr?
+				callback twttr
+			else
+				@once 'twttrInit', () => callback twttr
+
 		renderPlugins: () =>
-			twttr.widgets.load()
-			$$('.twitter-share-button').setStyle 'visibility','visible'
+			@onReady (twttr) =>
+				twttr.widgets.load()
+				$$('.twitter-share-button').setStyle 'visibility','visible'
 
 		onTweet: (event) =>
 			console.log 'On Tweet event fired', event
