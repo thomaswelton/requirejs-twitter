@@ -46,6 +46,10 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 		onTweet: (event) =>
 			console.log 'On Tweet event fired', event
 
+		tweetPopup: (url = '', text = '') =>
+			tweetUrl = "http://twitter.com/share?url=" + encodeURIComponent(url) + "&text=" + encodeURIComponent(text) + "&count=none/"
+			window.open tweetUrl, "tweet", "height=300,width=550,resizable=1"
+
 
 	## Create and return a new instance of Twitter
 	## module.config() returns a JSON object as defined in requirejs.config.Twitter
