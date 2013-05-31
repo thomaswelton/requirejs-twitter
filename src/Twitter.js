@@ -13,6 +13,7 @@
         var _this = this;
 
         this.config = config;
+        this.tweetPopup = __bind(this.tweetPopup, this);
         this.onTweet = __bind(this.onTweet, this);
         this.renderPlugins = __bind(this.renderPlugins, this);
         this.onReady = __bind(this.onReady, this);
@@ -20,7 +21,7 @@
         Twitter.__super__.constructor.call(this);
         this.cb = function() {};
         console.log('Twitter Class', this.config);
-        document.body.addEvent('click', function(event) {
+        $(document.body).addEvent('click', function(event) {
           if (event.target.hasClass('twitter-share-button')) {
             event.stop();
             return window.open(event.target.href, '_blank', 'height = 250, width = 450');
@@ -76,6 +77,19 @@
 
       Twitter.prototype.onTweet = function(event) {
         return console.log('On Tweet event fired', event);
+      };
+
+      Twitter.prototype.tweetPopup = function(url, text) {
+        var tweetUrl;
+
+        if (url == null) {
+          url = '';
+        }
+        if (text == null) {
+          text = '';
+        }
+        tweetUrl = "http://twitter.com/share?url=" + encodeURIComponent(url) + "&text=" + encodeURIComponent(text) + "&count=none/";
+        return window.open(tweetUrl, "tweet", "height=300,width=550,resizable=1");
       };
 
       return Twitter;

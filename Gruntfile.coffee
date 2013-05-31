@@ -22,29 +22,6 @@ module.exports = (grunt) =>
 					}
 				]
 
-		removelogging:
-			files:
-				expand: true
-				cwd: 'dist'
-				src: ['Twitter.min.js']
-				dest: 'dist'
-				ext: '.js'
-
-		uglify:
-			options:
-				mangle: false
-				compress: true
-				banner: """/*!
-						<%= pkg.name %> v<%= pkg.version %> 
-						<%= pkg.description %>
-						Build time: #{(new Date()).toString('dddd, MMMM ,yyyy')}
-						*/\n\n"""
-					
-			javascript:
-				files: {
-					'dist/Twitter.min.js': 'dist/Twitter.js'
-				}
-
 		markdown:
 			readmes:
 				files: [
@@ -79,23 +56,6 @@ module.exports = (grunt) =>
 			open:
 				command: 'open http://localhost:9001/'
 
-		requirejs:
-			compile:
-				options:
-					optimizeCss: false
-					optimize: 'none'
-					logLevel: 1
-					name: "Twitter"
-					out: "dist/Twitter.js"
-					baseUrl: "src"
-					exclude: ['EventEmitter', 'mootools']
-					paths:{
-						'domReady' : '../components/requirejs-domready/domReady'
-						'Twitter': '../src/Twitter'
-						'EventEmitter': '../components/EventEmitter/dist/EventEmitter'
-						'mootools' : '../demo/mootools'
-					}
-
 		shell:
 			bower_cache:
 				command: 'bower cache-clean'
@@ -118,7 +78,7 @@ module.exports = (grunt) =>
 	grunt.loadNpmTasks 'grunt-exec'
 	grunt.loadNpmTasks 'grunt-shell'
 	
-	grunt.registerTask 'default', ['shell:bower', 'compile', 'requirejs', 'uglify']
+	grunt.registerTask 'default', ['shell:bower', 'compile']
 
 	grunt.registerTask 'server', ['exec:server', 'exec:open', 'watch']
 

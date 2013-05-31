@@ -9,7 +9,7 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 
 			console.log 'Twitter Class', @config
 
-			document.body.addEvent 'click', (event) =>
+			$(document.body).addEvent 'click', (event) =>
 				if event.target.hasClass 'twitter-share-button'
 					event.stop()
 					window.open event.target.href, '_blank', 'height = 250, width = 450'
