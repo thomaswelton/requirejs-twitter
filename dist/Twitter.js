@@ -1,10 +1,9 @@
-
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define('Twitter',['EventEmitter', 'module', 'mootools'], function(EventEmitter, module) {
+  define(['EventEmitter', 'module', 'mootools'], function(EventEmitter, module) {
     var Twitter;
 
     Twitter = (function(_super) {
@@ -29,7 +28,6 @@
           }
         });
         this.onReady(function(twttr) {
-          console.log('Twitter SDK Fully loaded', twttr);
           _this.renderPlugins();
           return twttr.events.bind('tweet', _this.onTweet);
         });
@@ -77,7 +75,7 @@
       };
 
       Twitter.prototype.onTweet = function(event) {
-        return console.log('On Tweet event fired', event);
+        return this.fireEvent('onTweet', event);
       };
 
       Twitter.prototype.tweetPopup = function(url, text) {
