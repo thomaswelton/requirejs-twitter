@@ -16,8 +16,6 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 
 
 			@onReady (twttr) =>
-				console.log 'Twitter SDK Fully loaded', twttr
-				
 				@renderPlugins()
 				twttr.events.bind 'tweet', @onTweet
 
@@ -44,7 +42,7 @@ define ['EventEmitter', 'module', 'mootools'], (EventEmitter, module) ->
 				$$('.twitter-share-button').setStyle 'visibility','visible'
 
 		onTweet: (event) =>
-			console.log 'On Tweet event fired', event
+			@fireEvent 'onTweet', event
 
 		tweetPopup: (url = '', text = '') =>
 			tweetUrl = "http://twitter.com/share?url=" + encodeURIComponent(url) + "&text=" + encodeURIComponent(text) + "&count=none/"

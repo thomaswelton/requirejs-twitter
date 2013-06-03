@@ -28,7 +28,6 @@
           }
         });
         this.onReady(function(twttr) {
-          console.log('Twitter SDK Fully loaded', twttr);
           _this.renderPlugins();
           return twttr.events.bind('tweet', _this.onTweet);
         });
@@ -76,7 +75,7 @@
       };
 
       Twitter.prototype.onTweet = function(event) {
-        return console.log('On Tweet event fired', event);
+        return this.fireEvent('onTweet', event);
       };
 
       Twitter.prototype.tweetPopup = function(url, text) {
