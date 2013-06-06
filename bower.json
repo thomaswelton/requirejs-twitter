@@ -3,10 +3,10 @@
   , "version": "0.0.0"
   , "main": ["dist/Twitter.js", "dist/twitter.css"]
   , "dependencies": {
-  	"EventEmitter" : "git@github.com:thomaswelton/bower-event-emitter.git"
+  	"EventEmitter" : "git://github.com/thomaswelton/bower-event-emitter.git"
   }
   , "devDependencies": {
-    "requirejs": "git://github.com/jrburke/requirejs"
+      "requirejs": "git://github.com/jrburke/requirejs"
     , "requirejs-plugins": "git://github.com/millermedeiros/requirejs-plugins.git"
     , "requirejs-domready": "git://github.com/thomaswelton/domReady.git"
   }
