@@ -75,6 +75,7 @@ module.exports = (grunt) =>
 	grunt.registerTask 'server', ['exec:server', 'exec:open', 'watch']
 
 	grunt.registerTask 'commit', ['default', 'git']
+	grunt.registerTask 'travis', 'Travis build tasks', ['bower', 'coffee', 'markdown']
 	
 	grunt.registerTask 'compile', 'Compile coffeescript and markdown', ['coffee', 'markdown']
 	grunt.registerTask 'watch', 'Watch coffee and markdown files for changes and recompile', () ->
