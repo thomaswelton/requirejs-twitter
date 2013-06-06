@@ -4,7 +4,7 @@ module.exports = (grunt) =>
 
 		bower:
 			install: {}
-			
+
 		## Compile coffeescript
 		coffee:
 			compile:
@@ -62,7 +62,6 @@ module.exports = (grunt) =>
 		
 	grunt.loadNpmTasks 'grunt-contrib-coffee'
 	grunt.loadNpmTasks 'grunt-remove-logging'
-	grunt.loadNpmTasks 'grunt-contrib-uglify'
 	grunt.loadNpmTasks 'grunt-markdown'
 	grunt.loadNpmTasks 'grunt-regarde'
 	grunt.loadNpmTasks 'grunt-contrib-connect'

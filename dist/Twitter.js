@@ -5,13 +5,11 @@
 
   define(['EventEmitter', 'module', 'mootools'], function(EventEmitter, module) {
     var Twitter;
-
     Twitter = (function(_super) {
       __extends(Twitter, _super);
 
       function Twitter(config) {
         var _this = this;
-
         this.config = config;
         this.tweetPopup = __bind(this.tweetPopup, this);
         this.onTweet = __bind(this.onTweet, this);
@@ -36,7 +34,6 @@
 
       Twitter.prototype.injectTwitter = function(cb) {
         var _this = this;
-
         if (document.getElementById('twitter-wjs')) {
           return;
         }
@@ -52,7 +49,6 @@
 
       Twitter.prototype.onReady = function(callback) {
         var _this = this;
-
         if (callback == null) {
           callback = this.cb;
         }
@@ -67,7 +63,6 @@
 
       Twitter.prototype.renderPlugins = function() {
         var _this = this;
-
         return this.onReady(function(twttr) {
           twttr.widgets.load();
           return $$('.twitter-share-button').setStyle('visibility', 'visible');
@@ -80,7 +75,6 @@
 
       Twitter.prototype.tweetPopup = function(url, text) {
         var tweetUrl;
-
         if (url == null) {
           url = '';
         }
