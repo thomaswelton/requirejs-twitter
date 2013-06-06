@@ -3,7 +3,9 @@
   , "description": "Convenience wrapper for the Twitter SDK"
   , "version": "0.0.0"
   , "devDependencies": {
-     "grunt": ">= 0.4.1"
+      "grunt": ">= 0.4.1"
+    , "bower": ">= 0.9.x"
+    , "grunt-bower-task": ">= 0.2.3"
     , "grunt-contrib-coffee": ">= 0.6.6"
     , "grunt-markdown": "git://github.com/thomaswelton/grunt-markdown.git"
     , "grunt-regarde": ">= 0.1.1"

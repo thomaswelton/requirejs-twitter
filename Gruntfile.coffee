@@ -2,6 +2,9 @@ module.exports = (grunt) =>
 	grunt.initConfig
 		pkg: grunt.file.readJSON 'package.json'
 
+		bower:
+			install: {}
+			
 		## Compile coffeescript
 		coffee:
 			compile:
@@ -56,17 +59,6 @@ module.exports = (grunt) =>
 			open:
 				command: 'open http://localhost:9001/'
 
-		shell:
-			bower_cache:
-				command: 'bower cache-clean'
-				options:
-					stdout: true
-
-			bower:
-				command: 'bower install'
-				options:
-					stdout: true
-
 		
 	grunt.loadNpmTasks 'grunt-contrib-coffee'
 	grunt.loadNpmTasks 'grunt-remove-logging'
@@ -76,9 +68,9 @@ module.exports = (grunt) =>
 	grunt.loadNpmTasks 'grunt-contrib-connect'
 	grunt.loadNpmTasks 'grunt-contrib-requirejs'
 	grunt.loadNpmTasks 'grunt-exec'
-	grunt.loadNpmTasks 'grunt-shell'
+	grunt.loadNpmTasks 'grunt-bower-task'
 	
-	grunt.registerTask 'default', ['shell:bower', 'compile']
+	grunt.registerTask 'default', ['bower', 'compile']
 
 	grunt.registerTask 'server', ['exec:server', 'exec:open', 'watch']
 
