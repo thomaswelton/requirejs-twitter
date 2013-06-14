@@ -1,5 +1,5 @@
 {
-    "name": "bower-twitter"
+    "name": "requirejs-twitter"
   , "description": "Convenience wrapper for the Twitter SDK"
   , "version": "0.0.0"
   , "scripts": {
@@ -10,7 +10,7 @@
   }
   , "repository": {
       "type": "git",
-      "url": "https://github.com/thomaswelton/bower-twitter.git"
+      "url": "https://github.com/thomaswelton/requirejs-twitter.git"
   }
   , "dependencies": {
       "bower": ">= 0.9.x"
