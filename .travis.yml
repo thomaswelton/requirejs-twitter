@@ -1,5 +1,22 @@
 language: node_js
 node_js:
-  - "0.8"
+- '0.8'
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
+env:
+  global: 
+    - secure: "XzwN83fYCLdtq5PSob09eId/ITz5Dk/J9/ApvCMLddokha8Q+FV37Wts2Gh8\nCE+UIOGFTEw6V0q1IAClRLN8JNcFxoS+/vsIlXgqrz8FXjjE2S0ItVZgq28G\nL6ytjm8DRtnnbE7LhdOzG166BH+8iY68/1BSdkYD5l0L5LVsF9s="
+
+after_success:
+  - gem install heroku
+  - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then echo "This is a pull request. No deployment will be done."; exit 0; fi
+  - if [[ "$TRAVIS_BRANCH" != "master" ]]; then echo "Not the master branch. No deployment will be done."; exit 0; fi
+  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  - git remote add heroku git@heroku.com:require-twitter.git
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+  - heroku keys:clear
+  - yes | heroku keys:add
+  - yes | git push heroku master --force

@@ -3,21 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Bower Twitter Demo</title>
-	<link rel="stylesheet" href="../dist/twitter.css">
-	<script data-main="main" src="../lib/requirejs/require.js"></script>
+	<link rel="stylesheet" href="twitter.css">
+	<script data-main="main" src="components/requirejs/require.js"></script>
+
 	<script>
 		requirejs.config({
 			baseUrl: "",
-			config:{
-
-			},
 			paths:{
-				'domReady' : '../lib/requirejs-domready/domReady',
-				'Twitter' : '../dist/Twitter',
-				'EventEmitter': '../lib/EventEmitter/dist/EventEmitter'
+				'domReady' : 'components/requirejs-domready/domReady',
+				'Twitter' : 'Twitter',
+				'EventEmitter': 'components/EventEmitter/dist/EventEmitter'
 			}
 		});
 	</script>
+
+	<style>
+		.twitter-share-button{
+			visibility: hidden;
+		}
+	<//style>
 </head>
 <body>
 	<h1>Twitter</h1>
